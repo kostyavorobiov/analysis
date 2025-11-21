@@ -70,7 +70,7 @@
             
             /* Нові динамічні висоти для форм */
             .a6-form.h-zak { height: 126.225mm !important; } /* 148.5 * 0.85 */
-            .a6-form.h-bio { height: 170.775mm !important; } /* 148.5 * 1.15 */
+            .a6-form.h-bio { height: 168mm !important; } /* 148.5 * 1.15 */
             .a6-form.h-std { height: 148.5mm !important; } /* Стандарт A6 */
 
             /* Стиль Times New Roman 6pt для шапки */
@@ -684,8 +684,6 @@
                         <span class="print-data ml-1">${data.pib}</span>
                     </p>
                     
-                    <!-- Рядок для друкованих літер (порожній для візуалу) -->
-                    <p class="text-[7pt] italic text-center mb-1">(друкованими літерами)</p>
 
                     <!-- Дата народження -->
                     <p class="form-label-print form-line">
@@ -787,8 +785,6 @@
                         <span class="print-data ml-1">${data.pib}</span>
                     </p>
                     
-                    <!-- Рядок для друкованих літер (порожній для візуалу) -->
-                    <p class="text-[7pt] italic text-center mb-1">(друкованими літерами)</p>
 
                     <!-- Дата народження -->
                     <p class="form-label-print form-line">
@@ -920,8 +916,6 @@
                         <span class="print-data ml-1">${data.pib}</span>
                     </p>
                     
-                    <!-- Рядок для друкованих літер (порожній для візуалу) -->
-                    <p class="text-[7pt] italic text-center mb-1">(друкованими літерами)</p>
 
                     <!-- Дата народження -->
                     <p class="form-label-print form-line">
@@ -1032,8 +1026,7 @@
                         <span class="print-data ml-1">${data.pib}</span>
                     </p>
                     
-                    <!-- Рядок для друкованих літер (порожній для візуалу) -->
-                    <p class="text-[7pt] italic text-center mb-1">(друкованими літерами)</p>
+
 
                     <!-- Дата народження -->
                     <p class="form-label-print form-line">
@@ -1134,8 +1127,6 @@
                         <span class="print-data ml-1">${data.pib}</span>
                     </p>
                     
-                    <!-- Рядок для друкованих літер (порожній для візуалу) -->
-                    <p class="text-[7pt] italic text-center mb-1">(друкованими літерами)</p>
 
                     <!-- Дата народження -->
                     <p class="form-label-print form-line">
@@ -1240,8 +1231,6 @@
                         <span class="print-data ml-1">${data.pib}</span>
                     </p>
                     
-                    <!-- Рядок для друкованих літер (порожній для візуалу) -->
-                    <p class="text-[7pt] italic text-center mb-1">(друкованими літерами)</p>
 
                     <!-- Дата народження -->
                     <p class="form-label-print form-line">
@@ -1340,22 +1329,12 @@
                 return;
             }
 
-            // 1. СОРТУВАННЯ ЧЕРГИ ДРУКУ
-            // Пріоритет: ЗАК -> ЗАС -> Коагулограма -> Група крові -> РМП -> Біохімія
-            const priorityMap = {
-                'ZAK': 1,
-                'ZAS': 2,
-                'KOA': 3,
-                'BLG': 4,
-                'RMP': 5,
-                'BIO': 6
-            };
-
-            printQueue.sort((a, b) => {
-                const pA = priorityMap[a.templateKey] || 99;
-                const pB = priorityMap[b.templateKey] || 99;
-                return pA - pB;
-            });
+            // 1. СОРТУВАННЯ: Біохімія завжди в кінці, інші форми - в порядку додавання
+            const bioItems = printQueue.filter(item => item.templateKey === 'BIO');
+            const otherItems = printQueue.filter(item => item.templateKey !== 'BIO');
+            
+            // Об'єднуємо: спочатку всі звичайні, потім всі біохімії
+            const sortedQueue = [...otherItems, ...bioItems];
 
             statusMessage.textContent = "";
             statusMessage.classList.remove('text-red-600');
@@ -1372,11 +1351,13 @@
             let currentPage = []; 
             // currentPage = [ {html, height}, ... ]
 
-            for (let i = 0; i < printQueue.length; i++) {
-                const queueItem = printQueue[i];
+            // Використовуємо sortedQueue замість printQueue
+            for (let i = 0; i < sortedQueue.length; i++) {
+                const queueItem = sortedQueue[i];
                 const templateKey = queueItem.templateKey;
                 const template = formTemplates[templateKey];
                 const heightInfo = getFormHeightInfo(templateKey);
+                // Генеруємо HTML, передаючи оригінальний номер (хоча він тут не сильно важливий візуально)
                 const formHtml = template.generator(queueItem.patientData, i + 1);
                 
                 const newItem = {
@@ -1519,12 +1500,12 @@
                 document.getElementById('patient-data-section').classList.add('hidden');
             } else {
                 // Set test data defaults if no patients exist
-                document.getElementById('pib').value = "";
-                document.getElementById('birthDate').value = "";
-                document.getElementById('age').value = "";
-                document.getElementById('address').value = "";
-                document.getElementById('medCardNumber').value = "";
-                document.getElementById('clinicalDiagnosis').value = "";
+                document.getElementById('pib').value = "Іванов Іван Іванович";
+                document.getElementById('birthDate').value = "05.10.1995";
+                document.getElementById('age').value = "28";
+                document.getElementById('address').value = "Покришева 8, кв 69";
+                document.getElementById('medCardNumber').value = "02514";
+                document.getElementById('clinicalDiagnosis').value = "хронічний пієлонефрит";
                 // Доктор вже встановлений у form.doctor при initDoctorSelects
                 // Показуємо форму для нового пацієнта
                 document.getElementById('patient-data-section').classList.remove('hidden');
