@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Генератор Друкованих Форм A6 (Smart Sort & Print)</title>
+    <title>Направлення на лабораторні дослідження</title>
     <!-- Завантаження Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     <!-- Завантаження Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -55,7 +55,8 @@
                 box-sizing: border-box;
                 padding: 5px; 
                 background-color: white;
-                font-size: 9pt !important; 
+                /* --- ЗМІНА 1: БАЗОВИЙ ШРИФТ 10PX --- */
+                font-size: 12px !important; 
                 position: relative;
                 font-family: 'Times New Roman', serif !important;
             }
@@ -64,21 +65,17 @@
             .a6-form:nth-child(even) { border-right: none; }
             .a6-form:nth-child(-n+2) { border-top: none; }
             
-            /* Специфічна логіка для border-bottom видалена, бо тепер висота динамічна */
-            /* Але ми можемо спробувати прибрати нижній бордер для верхнього рядка візуально, якщо треба */
-            /* .a6-form:nth-child(n+3) { border-bottom: none; } - Це може бути небезпечно при переносі */
-            
-            /* Нові динамічні висоти для форм */
-            .a6-form.h-zak { height: 126.225mm !important; } /* 148.5 * 0.85 */
-            .a6-form.h-bio { height: 168mm !important; } /* 148.5 * 1.15 */
+            /* Нові динамічні висоти для форм (для друку) */
+            .a6-form.h-zak { height: 135mm !important; } /* 148.5 * 0.85 */
+            .a6-form.h-bio { height: 220mm !important; } /* Збільшено */
             .a6-form.h-std { height: 148.5mm !important; } /* Стандарт A6 */
 
-            /* Стиль Times New Roman 6pt для шапки */
+            /* Стиль Times New Roman 6pt для шапки (ЗАЛИШЕНО БЕЗ ЗМІН) */
             .print-header-style {
                 font-family: 'Times New Roman', serif !important;
                 font-size: 6pt !important; 
                 line-height: 1.2;
-                font-weight: normal !important; /* Прибрати жирний шрифт */
+                font-weight: normal !important; 
             }
             /* Стиль для відображення фіксованої назви закладу з переносами рядків */
             .institution-name-print {
@@ -87,82 +84,84 @@
                 font-size: 7pt;
             }
 
-            /* Стиль для динамічних даних - жирний та підкреслений */
+            /* --- ЗМІНА 1: ПРИМУСОВИЙ 10PX ДЛЯ ВСІХ ЕЛЕМЕНТІВ ТІЛА ФОРМИ --- */
             .print-data {
                 font-weight: bold !important; 
                 text-decoration: underline;
                 display: inline;
-                font-size: 9pt !important;
+                font-size: 12px !important;
             }
             
-            /* Стиль для статичних підписів у формі */
             .form-label-print {
-                font-size: 9pt !important;
+                font-size: 12px !important;
                 line-height: 1.3;
-                font-weight: normal !important; /* Прибрати жирний шрифт */
+                font-weight: normal !important;
             }
-            .form-line {
-                margin-top: 10px; /* Збільшення інтервалу між рядками */
-            }
-            /* Стиль для підпису лікаря внизу */
-            .doctor-signature-line {
-                display: inline-block;
-                width: 100px; /* Залишаємо для відступу */
-                text-align: center;
-                margin-left: 2px;
-            }
-            /* Стилі для поля вводу в друкованій формі (якщо потрібно місце для заповнення) */
+            
             .print-field {
                 border-bottom: 1px solid #000;
                 display: inline-block;
                 min-width: 30px; 
                 line-height: 1.3;
-                font-size: 9pt !important;
+                font-size: 12px !important;
                 vertical-align: top;
                 padding: 0 2px;
                 box-sizing: border-box;
                 font-weight: normal !important;
             }
-            
-            /* Специфічний стиль для таблиці Біохімії (4 колонки - 2x2) */
-            .biochem-table-small {
-                /* Дві колонки: одна для результату, друга для назви (2x2) */
-                display: grid;
-                grid-template-columns: 20px 1fr 20px 1fr; 
-                border-top: 1px solid #000;
-                border-left: 1px solid #000;
-                margin-top: 5px; /* Ближче до діагнозу */
-            }
-            
-            /* Специфічний стиль для таблиці Коагулограми та РМП (2 колонки - 1x1) */
-            .coag-table, .rmp-table {
-                display: grid;
-                grid-template-columns: 20px 1fr; /* 1 колонка для даних */
-                border-top: 1px solid #000;
-                border-left: 1px solid #000;
-                margin-top: 5px; /* Ближче до діагнозу */
-            }
 
+            .form-line {
+                margin-top: 8px; /* Збільшення інтервалу між рядками */
+            }
+            
+            /* Стиль для підпису лікаря внизу */
+            .doctor-signature-line {
+                display: inline-block;
+                width: 100px; 
+                text-align: center;
+                margin-left: 2px;
+            }
+            
+            /* Стилі таблиць */
+            .biochem-table-small, .coag-table, .rmp-table {
+                display: grid;
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+                margin-top: 5px;
+            }
+            
+            .biochem-table-small { grid-template-columns: 20px 1fr 20px 1fr; }
+            .coag-table, .rmp-table { grid-template-columns: 20px 1fr; }
+
+            /* --- ЗМІНА 1: ТАБЛИЦІ ТЕЖ 10PX --- */
             .coag-table .coag-cell, .biochem-table-small .biochem-cell, .rmp-table .rmp-cell {
                 border-right: 1px solid #000;
                 border-bottom: 1px solid #000;
-                padding: 1px;
-                height: 15px; /* Зменшена висота рядка */
-                line-height: 1.1;
+                padding: 10px;
+                line-height: 1;
                 display: flex;
                 align-items: center;
                 box-sizing: border-box;
-                font-size: 6pt !important; /* Шрифт 6pt для таблиці */
+                /* Шрифт 10px для всіх таблиць */
+                font-size: 12px !important; 
+                height: 16px; /* Трохи збільшено для 10px */
             }
+            
+            /* Окремо для Біохімії, якщо треба трохи більше місця */
+            .biochem-table-small .biochem-cell {
+                height: 28px !important;
+            }
+
             .coag-table .empty, .biochem-table-small .empty, .rmp-table .empty {
                 justify-content: center;
                 align-items: center;
             }
+            
             .coag-table .coag-text, .biochem-table-small .biochem-text, .rmp-table .rmp-text {
-                font-size: 6pt !important;
-                line-height: 1.1;
+                font-size: 12px !important;
+                line-height: 1;
             }
-            /* Специфічні стилі для РМП - обмеження ширини */
+
             .rmp-table {
                 width: 50%;
             }
@@ -197,46 +196,44 @@
     <script>
         
         // --- Глобальний Стан ---
-        let patients = {}; // { id: { pib, birthDate, ... } }
+        let patients = {}; 
         let currentPatientId = null;
-        let printQueue = []; // [{ patientData: {}, templateKey: 'ZAK', templateName: '...' }, ...]
+        let printQueue = []; 
         const PATIENT_STORAGE_KEY = 'lab_form_patients';
 
-        // Перелік місяців для коректного відображення дати
         const monthNames = [
             'січня', 'лютого', 'березня', 'квітня', 'травня', 'червня',
             'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'
         ];
         
-        // ФІКСОВАНІ ДАНІ ЗАКЛАДУ
         const FIXED_INSTITUTION_NAME = "КНП «Херсонська міська клінічна\nлікарня \nім. Є.Є. Карабелеша»";
         const SHORT_INSTITUTION_NAME = 'КНП "ХМКЛ ім. Є.Є. Карабелеша"'; 
         const FIXED_DEPARTMENT = "ВАІТ";
         
-        // Список лікарів для синхронізації випадаючих списків
         const DOCTOR_OPTIONS = [
-            "Воробйов К.Г.", "Туряниця С.В.", "Сидорко Ю.В.", "Ручкін В.С.", "Інший"
+             "Туряниця С.В.", "Сидорко Ю.В.", "Ручкін В.С.", "Воробйов К.Г."
         ];
 
-        // Нові розрахункові висоти в мм
+        // Розміри форм
         const H_STD = 148.5; // Стандарт A6
-        const H_ZAK_ZAS = H_STD * 0.85; // ~126.225mm (ЗАК, ЗАС: зменшено на 15%)
-        const H_BIO = H_STD * 1.15; // ~170.775mm (Біохімія: збільшено на 15%)
+        // Висоти для розрахунку місця на сторінці (використовуємо реальні розміри для кращого пакування)
+        const H_ZAK_ZAS = 140; // Згідно з CSS h-zak
+        const H_BIO = 220; // Згідно з CSS h-bio
 
         const FORM_HEIGHTS = {
             'ZAK': { height: H_ZAK_ZAS, className: 'h-zak' },
             'ZAS': { height: H_ZAK_ZAS, className: 'h-zak' },
             'BIO': { height: H_BIO, className: 'h-bio' },
-            'KOA': { height: H_STD, className: 'h-std' },
-            'RMP': { height: H_STD, className: 'h-std' },
-            'BLG': { height: H_STD, className: 'h-std' }, 
+            'KOA': { height: H_ZAK_ZAS, className: 'h-zak' }, 
+            'RMP': { height: H_ZAK_ZAS, className: 'h-zak' }, 
+            'BLG': { height: H_ZAK_ZAS, className: 'h-zak' }, 
         };
         
         function getFormHeightInfo(key) {
             return FORM_HEIGHTS[key] || { height: H_STD, className: 'h-std' };
         }
 
-        // --- ДОПОМІЖНІ ФУНКЦІЇ ДЛЯ УПРАВЛІННЯ ПАЦІЄНТАМИ ---
+        // --- ДОПОМІЖНІ ФУНКЦІЇ ---
         function loadPatients() {
             try {
                 const stored = localStorage.getItem(PATIENT_STORAGE_KEY);
@@ -256,7 +253,6 @@
         }
 
         function captureFormData() {
-            // Збирає дані з усіх основних полів форми
             const form = document.getElementById('entry-form');
             const genderRadio = form.querySelector('input[name="gender"]:checked');
             const leukoformulaRadio = form.querySelector('input[name="leukoformula"]:checked');
@@ -267,10 +263,10 @@
                 age: form.age.value.trim(),
                 gender: genderRadio ? genderRadio.value : '',
                 address: form.address.value.trim(),
-                doctor: form.doctor.value.trim(), // Doctor is read from the main form
+                doctor: form.doctor.value.trim(), 
                 medCardNumber: form.medCardNumber.value.trim(),
                 clinicalDiagnosis: form.clinicalDiagnosis.value.trim(),
-                leukoformula: leukoformulaRadio ? leukoformulaRadio.value : 'yes', // 'yes' by default
+                leukoformula: leukoformulaRadio ? leukoformulaRadio.value : 'yes',
             };
         }
 
@@ -283,17 +279,14 @@
             form.medCardNumber.value = data.medCardNumber || '';
             form.clinicalDiagnosis.value = data.clinicalDiagnosis || '';
             
-            // Set gender radio button
             const genderValue = data.gender || 'Ч';
             const genderRadio = form.querySelector(`input[name="gender"][value="${genderValue}"]`);
             if (genderRadio) genderRadio.checked = true;
 
-            // Set leukoformula radio button
             const leukoformulaValue = data.leukoformula || 'yes';
             const leukoformulaRadio = form.querySelector(`input[name="leukoformula"][value="${leukoformulaValue}"]`);
             if (leukoformulaRadio) leukoformulaRadio.checked = true;
 
-            // Doctor selection (if present in data, attempt to select it in main form and quick select)
             if (data.doctor) {
                 form.doctor.value = data.doctor;
                 document.getElementById('doctor-quick-select').value = data.doctor;
@@ -309,16 +302,12 @@
             form.medCardNumber.value = "";
             form.clinicalDiagnosis.value = "";
             
-            // Reset gender/leukoformula
             form.querySelector('input[name="gender"][value="Ч"]').checked = true;
             form.querySelector('input[name="leukoformula"][value="yes"]').checked = true;
             
-            // Keep date and doctor/leukoformula as they are usually current/fixed
-            // If the quick select has a value, keep it. Otherwise, set to default.
             const quickDoctor = document.getElementById('doctor-quick-select').value || DOCTOR_OPTIONS[0];
             form.doctor.value = quickDoctor;
             
-            // Clear currentPatientId when clearing form for a new patient
             currentPatientId = null; 
             document.getElementById('status-message').textContent = 'Введіть дані для нового пацієнта.';
             document.getElementById('status-message').className = 'mt-4 text-sm font-medium text-green-600 text-center';
@@ -326,7 +315,7 @@
 
         window.renderPatientList = function() {
             const listContainer = document.getElementById('patient-list-container');
-            listContainer.innerHTML = ''; // Очищаємо контейнер
+            listContainer.innerHTML = ''; 
             
             const patientKeys = Object.keys(patients).sort((a, b) => patients[a].pib.localeCompare(patients[b].pib));
             
@@ -338,26 +327,20 @@
                 const patient = patients[id];
                 
                 const itemDiv = document.createElement('div');
-                // justify-between is critical here
                 itemDiv.className = 'patient-list-item'; 
                 if (currentPatientId === id) {
                     itemDiv.classList.add('selected');
                 }
 
-                // Вибір пацієнта кліком на область
                 itemDiv.onclick = () => selectPatient(id);
                 
-                // 1. Ім'я (ЛІВОРУЧ) - ТЕПЕР ДУЖЕ ЖИРНИЙ ШРИФТ
                 const nameSpan = document.createElement('span');
                 nameSpan.className = 'patient-name-display'; 
                 nameSpan.textContent = `${patient.pib} (${patient.birthDate || 'Н/Д'})`;
 
-                // 2. Кнопки дій (ПРАВОРУЧ)
                 const actionsDiv = document.createElement('div');
-                // flex-shrink-0, щоб кнопки не стискались
                 actionsDiv.className = 'flex space-x-2 flex-shrink-0 ml-2 items-center'; 
                 
-                // Кнопка Редагувати
                 const editBtn = document.createElement('button');
                 editBtn.innerHTML = '<i data-lucide="edit-3" class="w-4 h-4 text-blue-600"></i>';
                 editBtn.className = 'icon-button hover:bg-blue-100 p-1.5 rounded-md transition-colors'; 
@@ -367,7 +350,6 @@
                     editSelectedPatient(id);
                 };
                 
-                // Кнопка Видалити
                 const deleteBtn = document.createElement('button');
                 deleteBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>';
                 deleteBtn.className = 'icon-button hover:bg-red-100 text-red-500 p-1.5 rounded-md transition-colors'; 
@@ -380,16 +362,13 @@
                 actionsDiv.appendChild(editBtn);
                 actionsDiv.appendChild(deleteBtn);
                 
-                // Додаємо елементи в правильному порядку
                 itemDiv.appendChild(nameSpan);
                 itemDiv.appendChild(actionsDiv);
                 listContainer.appendChild(itemDiv);
             });
             
-            // Re-create lucide icons if needed
             lucide.createIcons();
 
-            // Оновлення відображення обраного пацієнта
             if (currentPatientId && patients[currentPatientId]) {
                 document.getElementById('current-patient-display').textContent = patients[currentPatientId].pib;
             } else {
@@ -403,16 +382,10 @@
                 loadDataToForm(patients[id]);
                 document.getElementById('status-message').textContent = `Дані пацієнта ${patients[id].pib} завантажено.`;
                 document.getElementById('status-message').className = 'mt-4 text-sm font-medium text-green-600 text-center';
-                
-                // 3. Секція "Заповнення Даних Пацієнта" СКРИТА
                 document.getElementById('patient-data-section').classList.add('hidden');
-
             } else {
-                // Новий пацієнт / Очистити форму
                 clearForm();
                 document.getElementById('status-message').textContent = 'Введіть дані для нового пацієнта.';
-                
-                // 3. Секція "Заповнення Даних Пацієнта" ПОКАЗАНА
                 document.getElementById('patient-data-section').classList.remove('hidden');
             }
             renderPatientList();
@@ -420,7 +393,6 @@
         
         window.editSelectedPatient = function(id) {
             if (id && patients[id]) {
-                // Завантажуємо дані та показуємо форму
                 selectPatient(id); 
                 document.getElementById('patient-data-section').classList.remove('hidden');
                 document.getElementById('status-message').textContent = `Редагування пацієнта ${patients[id].pib}.`;
@@ -438,11 +410,9 @@
             }
 
             if (currentPatientId && patients[currentPatientId]) {
-                // Update existing patient
                 patients[currentPatientId] = { ...patients[currentPatientId], ...data };
                 document.getElementById('status-message').textContent = `Дані пацієнта ${data.pib} оновлено.`;
             } else {
-                // Add new patient
                 const newId = 'pat-' + crypto.randomUUID();
                 patients[newId] = data;
                 currentPatientId = newId;
@@ -451,8 +421,6 @@
 
             savePatients();
             renderPatientList();
-            
-            // Після збереження приховуємо форму редагування
             window.selectPatient(currentPatientId);
             document.getElementById('status-message').classList.remove('text-red-600');
             document.getElementById('status-message').classList.add('text-green-600');
@@ -460,18 +428,15 @@
 
         window.deletePatient = function(id) {
             if (id && patients[id]) {
-                // Використовуємо prompt для імітації підтвердження
+                // Використовуємо prompt як безпечний fallback замість alert/confirm у цьому середовищі
                 const confirmation = prompt(`Щоб видалити пацієнта ${patients[id].pib}, введіть 'ТАК' (видалення без підтвердження через обмеження середовища):`);
-                
                 if (confirmation && confirmation.toUpperCase() === 'ТАК') { 
                     const name = patients[id].pib;
                     delete patients[id];
-                    
                     if (currentPatientId === id) {
                         currentPatientId = null;
                         clearForm();
                     }
-                    
                     savePatients();
                     renderPatientList();
                     document.getElementById('status-message').textContent = `Пацієнта ${name} видалено.`;
@@ -485,17 +450,12 @@
             }
         }
         
-        // --- Doctor Quick Select Logic (ОНОВЛЕНО: Масове оновлення + LocalStorage) ---
-        
         function initDoctorSelects() {
             const formSelect = document.getElementById('doctor');
             const quickSelect = document.getElementById('doctor-quick-select');
-            
-            // Clear existing options
             formSelect.innerHTML = '';
             quickSelect.innerHTML = '';
             
-            // Add initial disabled option for the quick select
             const defaultQuickOption = document.createElement('option');
             defaultQuickOption.value = '';
             defaultQuickOption.textContent = '--- Швидкий вибір лікаря ---';
@@ -503,7 +463,6 @@
             defaultQuickOption.selected = true;
             quickSelect.appendChild(defaultQuickOption);
             
-            // Add options to both selects
             const defaultFormOption = document.createElement('option');
             defaultFormOption.value = '';
             defaultFormOption.textContent = '--- Оберіть лікаря ---';
@@ -522,37 +481,56 @@
                 quickSelect.appendChild(opt2);
             });
             
-            // Set initial selected value for the form (if default patient/test data exists)
-            formSelect.value = DOCTOR_OPTIONS[0]; // Set default for ease of testing
+            formSelect.value = DOCTOR_OPTIONS[0]; 
         }
 
         window.handleQuickDoctorChange = function(selectElement) {
             const newDoctor = selectElement.value;
             const formDoctor = document.getElementById('doctor');
-            
-            // 1. Оновлюємо поле у формі редагування (візуально)
             formDoctor.value = newDoctor;
 
-            // 2. МАСОВЕ ОНОВЛЕННЯ: Оновлюємо лікаря для ВСІХ пацієнтів у базі
             const allPatientIds = Object.keys(patients);
             if (allPatientIds.length > 0) {
                 allPatientIds.forEach(id => {
                     patients[id].doctor = newDoctor;
                 });
-                
-                // 3. ЗБЕРІГАЄМО ЗМІНИ В LOCALSTORAGE
                 savePatients();
-                
-                // Оновлюємо поточні дані форми, якщо пацієнт обраний (щоб при натисканні "Зберегти" не було конфліктів)
                 if (currentPatientId && patients[currentPatientId]) {
                     loadDataToForm(patients[currentPatientId]);
                 }
-                
-                document.getElementById('status-message').textContent = `Лікаря змінено на "${newDoctor}" для ВСІХ (${allPatientIds.length}) пацієнтів. Дані збережено локально.`;
+                document.getElementById('status-message').textContent = `Лікаря змінено на "${newDoctor}" для ВСІХ (${allPatientIds.length}) пацієнтів.`;
             } else {
                 document.getElementById('status-message').textContent = `Лікаря змінено на "${newDoctor}" (База пацієнтів порожня).`;
             }
             
+            document.getElementById('status-message').classList.remove('text-red-600');
+            document.getElementById('status-message').classList.add('text-green-600');
+        }
+
+        // --- ОБРОБКА ЗМІНИ ГЛОБАЛЬНОЇ ДАТИ ---
+        window.handleGlobalDateChange = function(input) {
+            if (!input.value) return;
+            
+            const date = new Date(input.value);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+
+            // 1. Оновлення полів вводу
+            document.getElementById('bioMaterialDay').value = day;
+            document.getElementById('bioMaterialMonth').value = month;
+            document.getElementById('bioMaterialYear').value = year;
+
+            // 2. Оновлення всіх елементів у черзі друку
+            let updatedCount = 0;
+            printQueue.forEach(item => {
+                item.patientData.bioMaterialDay = day;
+                item.patientData.bioMaterialMonth = month;
+                item.patientData.bioMaterialYear = year;
+                updatedCount++;
+            });
+
+            document.getElementById('status-message').textContent = `Дату змінено на ${day}.${month}.${year} для форми та ${updatedCount} аналізів у черзі.`;
             document.getElementById('status-message').classList.remove('text-red-600');
             document.getElementById('status-message').classList.add('text-green-600');
         }
@@ -572,7 +550,6 @@
                 return;
             }
 
-            // Capture the necessary fixed data and current form data
             const patientData = {
                 ...formData,
                 institutionName: FIXED_INSTITUTION_NAME,
@@ -614,7 +591,7 @@
                 const template = formTemplates[item.templateKey];
                 const itemDiv = document.createElement('span');
                 const textColor = item.templateKey === 'ZAS' ? 'text-gray-800' : 'text-white'; 
-                const patientName = item.patientData.pib.split(' ')[0] || '...'; // Only use first name/word
+                const patientName = item.patientData.pib.split(' ')[0] || '...'; 
                 
                 itemDiv.className = `${template.color} ${textColor} text-xs font-semibold px-2 py-1 rounded-full mr-2 mb-2 inline-block shadow-md transition duration-150 ease-in-out`;
                 itemDiv.textContent = `${index + 1}. ${item.templateName} (${patientName})`;
@@ -626,7 +603,6 @@
             }
         }
         
-        // --- ДОПОМІЖНА ФУНКЦІЯ ДЛЯ ШАПКИ ---
         const getHeaderHTML = (institutionName) => `
             <div class="flex justify-between items-start mb-1 border-b border-black print-header-style">
                 <div class="w-1/2 pr-2">
@@ -635,7 +611,7 @@
                         <p class="border-b border-black">Найменування закладу</p>
                         <p class="institution-name-print border-b border-black">${institutionName}</p>
                         <p>Клініко-діагностична лабораторія</p>
-                        <p class="text-[7pt] border-b-0"></p> <!-- Підкреслення прибрано -->
+                        <p class="text-[7pt] border-b-0"></p> 
                     </div>
                 </div>
                 <div class="w-1/2 pl-2 border-l border-black leading-snug">
@@ -652,18 +628,11 @@
             </div>
         `;
         
-        // --- ДИНАМІЧНІ ШАБЛОНИ ФОРМ (HTML для A6) ---
-        
-        // Шаблон 1: ЗАК (Загальний Аналіз Крові) - Фіолетовий
         const templateZAK = (data, index) => {
-            
-            // Дата взяття біоматеріалу
             const bioDay = data.bioMaterialDay;
             const bioMonthIndex = parseInt(data.bioMaterialMonth) - 1;
             const bioMonthName = monthNames[bioMonthIndex] || '';
             const bioYear = data.bioMaterialYear;
-            
-            // Обробка лейкоформули
             const leukoformulaPrint = data.leukoformula === 'yes' ? 'ТАК' : 'НІ';
 
             return `
@@ -678,20 +647,16 @@
                         <p class="text-[7pt] italic">(дата взяття біоматеріалу)</p>
                     </div>
                     
-                    <!-- Рядок ПІБ: Підпис + Дані (Жирний, Підкреслений) -->
                     <p class="mt-2 form-label-print form-line">
                         Прізвище,ім'я, по батькові
                         <span class="print-data ml-1">${data.pib}</span>
                     </p>
                     
-
-                    <!-- Дата народження -->
                     <p class="form-label-print form-line">
                         Дата народження (число, місяць, рік)
                         <span class="print-data ml-1">${data.birthDate}</span>
                     </p>
                     
-                    <!-- Вік та Стать -->
                     <p class="form-label-print form-line">
                         Вік (повних років) 
                         <span class="print-data ml-1">${data.age}</span> 
@@ -699,69 +664,57 @@
                         <span class="print-data ml-1">${data.gender}</span>
                     </p>
                     
-                    <!-- Домашня адреса -->
                     <p class="form-label-print form-line">
                         Домашня адреса 
                         <span class="print-data ml-1">${data.address}</span>
                     </p>
                     
-                    <!-- Заклад (ФІКСОВАНИЙ ТА СКОРОЧЕНИЙ) -->
                     <p class="form-label-print form-line">
                         Заклад 
                         <span class="print-data ml-1">${SHORT_INSTITUTION_NAME}</span>
                     </p>
                     
-                    <!-- Відділення (ФІКСОВАНЕ) -->
                     <p class="form-label-print form-line">
                         Відділення 
                         <span class="print-data ml-1">${data.department}</span>
                     </p>
                     
-                    <!-- Лікар -->
                     <p class="form-label-print form-line">
                         Лікар 
                         <span class="print-data ml-1">${data.doctor || ''}</span>
                     </p>
                     
-                    <!-- Медична карта № -->
                     <p class="form-label-print form-line">
                         Медична карта № 
                         <span class="print-data ml-1">${data.medCardNumber || ''}</span>
                     </p>
                     
-                    <!-- Клінічний діагноз -->
                     <p class="form-label-print form-line">
                         Клінічний діагноз 
                         <span class="print-data ml-1">${data.clinicalDiagnosis || ''}</span>
                     </p>
                     
-                    <!-- Вид дослідження -->
                     <p class="form-label-print form-line">
                         Вид дослідження: 
                         <span class="print-data ml-1">ЗАГАЛЬНИЙ АНАЛІЗ КРОВІ</span>
                     </p>
 
-                    <!-- Лейкоформула -->
                     <div class="mt-2 flex items-center form-label-print form-line">
                         <p class="mr-2">ЛЕЙКОФОРМУЛА:</p>
                         <span class="print-data">${leukoformulaPrint}</span>
                     </div>
                     
-                    <!-- Підпис лікаря (АВТОМАТИЧНО З ПОЛЯ ЛІКАР) -->
-                    <p style="font-size: 10pt !important; margin-top: 2px;">
+                    <p style="font-size: 12px !important; margin-top: 8px;">
                         П.І.Б. лікаря 
-                        <span class="print-data" style="font-size: 10pt !important;">${data.doctor || ''}</span> 
-                        <span class="doctor-signature-line"></span> <!-- Залишаємо відступ -->
+                        <span class="print-data" style="font-size: 12px !important;">${data.doctor || ''}</span> 
+                        <span class="doctor-signature-line"></span> 
                     </p>
                 </div>
             </div>
             `;
         };
 
-        // Шаблон 2: ЗАС (Загальний Аналіз Сечі) - Жовтий - ОНОВЛЕНИЙ
         const templateZAS = (data, index) => {
-            
-            // Дата взяття біоматеріалу
             const bioDay = data.bioMaterialDay;
             const bioMonthIndex = parseInt(data.bioMaterialMonth) - 1;
             const bioMonthName = monthNames[bioMonthIndex] || '';
@@ -779,20 +732,16 @@
                         <p class="text-[7pt] italic">(дата взяття біоматеріалу)</p>
                     </div>
                     
-                    <!-- Рядок ПІБ: Підпис + Дані (Жирний, Підкреслений) -->
                     <p class="mt-2 form-label-print form-line">
                         Прізвище,ім'я, по батькові
                         <span class="print-data ml-1">${data.pib}</span>
                     </p>
                     
-
-                    <!-- Дата народження -->
                     <p class="form-label-print form-line">
                         Дата народження (число, місяць, рік)
                         <span class="print-data ml-1">${data.birthDate}</span>
                     </p>
                     
-                    <!-- Вік та Стать -->
                     <p class="form-label-print form-line">
                         Вік (повних років) 
                         <span class="print-data ml-1">${data.age}</span> 
@@ -800,54 +749,44 @@
                         <span class="print-data ml-1">${data.gender}</span>
                     </p>
                     
-                    <!-- Домашня адреса -->
                     <p class="form-label-print form-line">
                         Домашня адреса 
                         <span class="print-data ml-1">${data.address}</span>
                     </p>
                     
-                    <!-- Заклад (ФІКСОВАНИЙ ТА СКОРОЧЕНИЙ) -->
                     <p class="form-label-print form-line">
                         Заклад 
                         <span class="print-data ml-1">${SHORT_INSTITUTION_NAME}</span>
                     </p>
                     
-                    <!-- Відділення (ФІКСОВАНЕ) -->
                     <p class="form-label-print form-line">
                         Відділення 
                         <span class="print-data ml-1">${data.department}</span>
                     </p>
                     
-                    <!-- Лікар -->
                     <p class="form-label-print form-line">
                         Лікар 
                         <span class="print-data ml-1">${data.doctor || ''}</span>
                     </p>
                     
-                    <!-- Медична карта № -->
                     <p class="form-label-print form-line">
                         Медична карта № 
                         <span class="print-data ml-1">${data.medCardNumber || ''}</span>
                     </p>
                     
-                    <!-- Клінічний діагноз -->
                     <p class="form-label-print form-line">
                         Клінічний діагноз 
                         <span class="print-data ml-1">${data.clinicalDiagnosis || ''}</span>
                     </p>
                     
-                    <!-- Вид дослідження -->
                     <p class="form-label-print form-line">
                         Вид дослідження: 
-                        <span class="print-data ml-1">ЗАГАЛЬНИЙ АНАЛІЗ СЕЧІ</span> <!-- Змінено на СЕЧІ -->
+                        <span class="print-data ml-1">ЗАГАЛЬНИЙ АНАЛІЗ СЕЧІ</span> 
                     </p>
 
-                    <!-- Блок ЛЕЙКОФОРМУЛА ВИДАЛЕНО -->
-                    
-                    <!-- Підпис лікаря (АВТОМАТИЧНО З ПОЛЯ ЛІКАР) -->
-                    <p style="font-size: 10pt !important; margin-top: 2px;">
+                    <p style="font-size: 12px !important; margin-top: 8px;">
                         П.І.Б. лікаря 
-                        <span class="print-data" style="font-size: 10pt !important;">${data.doctor || ''}</span> 
+                        <span class="print-data" style="font-size: 12px !important;">${data.doctor || ''}</span> 
                         <span class="doctor-signature-line"></span> 
                     </p>
                 </div>
@@ -855,16 +794,12 @@
             `;
         };
 
-        // Шаблон 3: Біохімія - Червоний - ОНОВЛЕНО З ТАБЛИЦЕЮ 6PT
         const templateBiochemistry = (data, index) => {
-            
-            // Дата взяття біоматеріалу
             const bioDay = data.bioMaterialDay;
             const bioMonthIndex = parseInt(data.bioMaterialMonth) - 1;
             const bioMonthName = monthNames[bioMonthIndex] || '';
             const bioYear = data.bioMaterialYear;
             
-            // Масив показників біохімії для формування таблиці
             const biochemistryTests = [
                 "Аланінамінотрансфераза (АлАТ)", "Глюкоза",
                 "Аспартатамінотрансфераза (АсАТ)", "Залізо",
@@ -881,7 +816,7 @@
                 "Сечова кислота", "Кальцій",
                 "Загальний холестерин", "Глікований гемоглобін",
                 "Тригліцериди", "Інші:",
-                "Ліпідограма", "", // Ліпідограма займає окремий рядок
+                "Ліпідограма", "", 
             ];
             
             const tableRows = [];
@@ -897,7 +832,6 @@
                 `);
             }
 
-
             return `
             <div class="a6-form border-none relative leading-tight">
                 <div class="absolute top-[3mm] left-[5mm] right-[5mm]">
@@ -910,20 +844,16 @@
                         <p class="text-[7pt] italic">(дата взяття біоматеріалу)</p>
                     </div>
                     
-                    <!-- Рядок ПІБ: Підпис + Дані (Жирний, Підкреслений) -->
                     <p class="mt-2 form-label-print form-line">
                         Прізвище,ім'я, по батькові
                         <span class="print-data ml-1">${data.pib}</span>
                     </p>
                     
-
-                    <!-- Дата народження -->
                     <p class="form-label-print form-line">
                         Дата народження (число, місяць, рік)
                         <span class="print-data ml-1">${data.birthDate}</span>
                     </p>
                     
-                    <!-- Вік та Стать -->
                     <p class="form-label-print form-line">
                         Вік (повних років) 
                         <span class="print-data ml-1">${data.age}</span> 
@@ -931,51 +861,43 @@
                         <span class="print-data ml-1">${data.gender}</span>
                     </p>
                     
-                    <!-- Домашня адреса -->
                     <p class="form-label-print form-line">
                         Домашня адреса 
                         <span class="print-data ml-1">${data.address}</span>
                     </p>
                     
-                    <!-- Заклад (ФІКСОВАНИЙ ТА СКОРОЧЕНИЙ) -->
                     <p class="form-label-print form-line">
                         Заклад 
                         <span class="print-data ml-1">${SHORT_INSTITUTION_NAME}</span>
                     </p>
                     
-                    <!-- Відділення (ФІКСОВАНЕ) -->
                     <p class="form-label-print form-line">
                         Відділення 
                         <span class="print-data ml-1">${data.department}</span>
                     </p>
                     
-                    <!-- Лікар -->
                     <p class="form-label-print form-line">
                         Лікар 
                         <span class="print-data ml-1">${data.doctor || ''}</span>
                     </p>
                     
-                    <!-- Медична карта № -->
                     <p class="form-label-print form-line">
                         Медична карта № 
                         <span class="print-data ml-1">${data.medCardNumber || ''}</span>
                     </p>
                     
-                    <!-- Клінічний діагноз -->
                     <p class="form-label-print form-line">
                         Клінічний діагноз 
                         <span class="print-data ml-1">${data.clinicalDiagnosis || ''}</span>
                     </p>
                     
-                    <!-- Таблиця Біохімії (Замість "Вид дослідження" та далі) -->
                     <div class="biochem-table-small">
                         ${tableRows.join('')}
                     </div>
                     
-                    <!-- Підпис лікаря (АВТОМАТИЧНО З ПОЛЯ ЛІКАР) -->
-                    <p style="font-size: 10pt !important; margin-top: 2px;">
+                    <p style="font-size: 12px !important; margin-top: 8px;">
                         П.І.Б. лікаря 
-                        <span class="print-data" style="font-size: 10pt !important;">${data.doctor || ''}</span> 
+                        <span class="print-data" style="font-size: 12px !important;">${data.doctor || ''}</span> 
                         <span class="doctor-signature-line"></span> 
                     </p>
                 </div>
@@ -983,16 +905,12 @@
             `;
         };
         
-        // Шаблон 4: Коагулограма - Блакитний - ОНОВЛЕНИЙ З ТАБЛИЦЕЮ (2x2)
         const templateCoagulogram = (data, index) => {
-            
-            // Дата взяття біоматеріалу
             const bioDay = data.bioMaterialDay;
             const bioMonthIndex = parseInt(data.bioMaterialMonth) - 1;
             const bioMonthName = monthNames[bioMonthIndex] || '';
             const bioYear = data.bioMaterialYear;
             
-            // Масив показників Коагулограми для формування таблиці (одноколонковий список)
             const coagTests = [
                 "МНО", 
                 "ПЧ (протромбіновий час)",
@@ -1001,12 +919,10 @@
                 "Фібриноген",
             ];
             
-            // Створення рядків для таблиці (результат + назва)
             const tableRows = coagTests.map(test => `
                 <div class="coag-cell empty"></div>
                 <div class="coag-cell coag-text">${test}</div>
             `).join('');
-
 
             return `
             <div class="a6-form border-none relative leading-tight">
@@ -1020,21 +936,16 @@
                         <p class="text-[7pt] italic">(дата взяття біоматеріалу)</p>
                     </div>
                     
-                    <!-- Рядок ПІБ: Підпис + Дані (Жирний, Підкреслений) -->
                     <p class="mt-2 form-label-print form-line">
                         Прізвище,ім'я, по батькові
                         <span class="print-data ml-1">${data.pib}</span>
                     </p>
                     
-
-
-                    <!-- Дата народження -->
                     <p class="form-label-print form-line">
                         Дата народження (число, місяць, рік)
                         <span class="print-data ml-1">${data.birthDate}</span>
                     </p>
                     
-                    <!-- Вік та Стать -->
                     <p class="form-label-print form-line">
                         Вік (повних років) 
                         <span class="print-data ml-1">${data.age}</span> 
@@ -1042,57 +953,48 @@
                         <span class="print-data ml-1">${data.gender}</span>
                     </p>
                     
-                    <!-- Домашня адреса -->
                     <p class="form-label-print form-line">
                         Домашня адреса 
                         <span class="print-data ml-1">${data.address}</span>
                     </p>
                     
-                    <!-- Заклад (ФІКСОВАНИЙ ТА СКОРОЧЕНИЙ) -->
                     <p class="form-label-print form-line">
                         Заклад 
                         <span class="print-data ml-1">${SHORT_INSTITUTION_NAME}</span>
                     </p>
                     
-                    <!-- Відділення (ФІКСОВАНЕ) -->
                     <p class="form-label-print form-line">
                         Відділення 
                         <span class="print-data ml-1">${data.department}</span>
                     </p>
                     
-                    <!-- Лікар -->
                     <p class="form-label-print form-line">
                         Лікар 
                         <span class="print-data ml-1">${data.doctor || ''}</span>
                     </p>
                     
-                    <!-- Медична карта № -->
                     <p class="form-label-print form-line">
                         Медична карта № 
                         <span class="print-data ml-1">${data.medCardNumber || ''}</span>
                     </p>
                     
-                    <!-- Клінічний діагноз -->
                     <p class="form-label-print form-line">
                         Клінічний діагноз 
                         <span class="print-data ml-1">${data.clinicalDiagnosis || ''}</span>
                     </p>
                     
-                    <!-- Вид дослідження -->
                     <p class="form-label-print form-line">
                         Вид дослідження: 
                         <span class="print-data ml-1">КОАГУЛОГРАМА</span>
                     </p>
 
-                    <!-- Таблиця Коагулограми (ОНОВЛЕНА) -->
                     <div class="coag-table">
                         ${tableRows}
                     </div>
                     
-                    <!-- Підпис лікаря (АВТОМАТИЧНО З ПОЛЯ ЛІКАР) -->
-                    <p style="font-size: 10pt !important; margin-top: 2px;">
+                    <p style="font-size: 12px !important; margin-top: 8px;">
                         П.І.Б. лікаря 
-                        <span class="print-data" style="font-size: 10pt !important;">${data.doctor || ''}</span> 
+                        <span class="print-data" style="font-size: 12px !important;">${data.doctor || ''}</span> 
                         <span class="doctor-signature-line"></span> 
                     </p>
                 </div>
@@ -1100,10 +1002,7 @@
             `;
         };
 
-        // Шаблон 5: РМП (Серологічний на сифіліс) - Нова форма
         const templateRMP = (data, index) => {
-            
-            // Дата взяття біоматеріалу
             const bioDay = data.bioMaterialDay;
             const bioMonthIndex = parseInt(data.bioMaterialMonth) - 1;
             const bioMonthName = monthNames[bioMonthIndex] || '';
@@ -1121,20 +1020,16 @@
                         <p class="text-[7pt] italic">(дата взяття біоматеріалу)</p>
                     </div>
                     
-                    <!-- Рядок ПІБ: Підпис + Дані (Жирний, Підкреслений) -->
                     <p class="mt-2 form-label-print form-line">
                         Прізвище,ім'я, по батькові
                         <span class="print-data ml-1">${data.pib}</span>
                     </p>
                     
-
-                    <!-- Дата народження -->
                     <p class="form-label-print form-line">
                         Дата народження (число, місяць, рік)
                         <span class="print-data ml-1">${data.birthDate}</span>
                     </p>
                     
-                    <!-- Вік та Стать -->
                     <p class="form-label-print form-line">
                         Вік (повних років) 
                         <span class="print-data ml-1">${data.age}</span> 
@@ -1142,49 +1037,41 @@
                         <span class="print-data ml-1">${data.gender}</span>
                     </p>
                     
-                    <!-- Домашня адреса -->
                     <p class="form-label-print form-line">
                         Домашня адреса 
                         <span class="print-data ml-1">${data.address}</span>
                     </p>
                     
-                    <!-- Заклад (ФІКСОВАНИЙ ТА СКОРОЧЕНИЙ) -->
                     <p class="form-label-print form-line">
                         Заклад 
                         <span class="print-data ml-1">${SHORT_INSTITUTION_NAME}</span>
                     </p>
                     
-                    <!-- Відділення (ФІКСОВАНЕ) -->
                     <p class="form-label-print form-line">
                         Відділення 
                         <span class="print-data ml-1">${data.department}</span>
                     </p>
                     
-                    <!-- Лікар -->
                     <p class="form-label-print form-line">
                         Лікар 
                         <span class="print-data ml-1">${data.doctor || ''}</span>
                     </p>
                     
-                    <!-- Медична карта № -->
                     <p class="form-label-print form-line">
                         Медична карта № 
                         <span class="print-data ml-1">${data.medCardNumber || ''}</span>
                     </p>
                     
-                    <!-- Клінічний діагноз -->
                     <p class="form-label-print form-line">
                         Клінічний діагноз 
                         <span class="print-data ml-1">${data.clinicalDiagnosis || ''}</span>
                     </p>
                     
-                    <!-- Вид дослідження -->
                     <p class="form-label-print form-line">
                         Вид дослідження: 
                         <span class="print-data ml-1">СЕРОЛОГІЧНИЙ НА СИФІЛІС:</span>
                     </p>
 
-                    <!-- Таблиця РМП -->
                     <div class="rmp-table">
                         <div class="rmp-cell empty"></div>
                         <div class="rmp-cell rmp-text">VDRL</div>
@@ -1193,10 +1080,9 @@
                         <div class="rmp-cell rmp-text">РПГА</div>
                     </div>
                     
-                    <!-- Підпис лікаря (АВТОМАТИЧНО З ПОЛЯ ЛІКАР) -->
-                    <p style="font-size: 10pt !important; margin-top: 2px;">
+                    <p style="font-size: 12px !important; margin-top: 8px;">
                         П.І.Б. лікаря 
-                        <span class="print-data" style="font-size: 10pt !important;">${data.doctor || ''}</span> 
+                        <span class="print-data" style="font-size: 12px !important;">${data.doctor || ''}</span> 
                         <span class="doctor-signature-line"></span> 
                     </p>
                 </div>
@@ -1204,10 +1090,7 @@
             `;
         };
         
-        // Шаблон 6: Група крові - Нова форма (Червоний)
         const templateBloodGroup = (data, index) => {
-            
-            // Дата взяття біоматеріалу
             const bioDay = data.bioMaterialDay;
             const bioMonthIndex = parseInt(data.bioMaterialMonth) - 1;
             const bioMonthName = monthNames[bioMonthIndex] || '';
@@ -1225,20 +1108,16 @@
                         <p class="text-[7pt] italic">(дата взяття біоматеріалу)</p>
                     </div>
                     
-                    <!-- Рядок ПІБ: Підпис + Дані (Жирний, Підкреслений) -->
                     <p class="mt-2 form-label-print form-line">
                         Прізвище,ім'я, по батькові
                         <span class="print-data ml-1">${data.pib}</span>
                     </p>
                     
-
-                    <!-- Дата народження -->
                     <p class="form-label-print form-line">
                         Дата народження (число, місяць, рік)
                         <span class="print-data ml-1">${data.birthDate}</span>
                     </p>
                     
-                    <!-- Вік та Стать -->
                     <p class="form-label-print form-line">
                         Вік (повних років) 
                         <span class="print-data ml-1">${data.age}</span> 
@@ -1246,52 +1125,44 @@
                         <span class="print-data ml-1">${data.gender}</span>
                     </p>
                     
-                    <!-- Домашня адреса -->
                     <p class="form-label-print form-line">
                         Домашня адреса 
                         <span class="print-data ml-1">${data.address}</span>
                     </p>
                     
-                    <!-- Заклад (ФІКСОВАНИЙ ТА СКОРОЧЕНИЙ) -->
                     <p class="form-label-print form-line">
                         Заклад 
                         <span class="print-data ml-1">${SHORT_INSTITUTION_NAME}</span>
                     </p>
                     
-                    <!-- Відділення (ФІКСОВАНЕ) -->
                     <p class="form-label-print form-line">
                         Відділення 
                         <span class="print-data ml-1">${data.department}</span>
                     </p>
                     
-                    <!-- Лікар -->
                     <p class="form-label-print form-line">
                         Лікар 
                         <span class="print-data ml-1">${data.doctor || ''}</span>
                     </p>
                     
-                    <!-- Медична карта № -->
                     <p class="form-label-print form-line">
                         Медична карта № 
                         <span class="print-data ml-1">${data.medCardNumber || ''}</span>
                     </p>
                     
-                    <!-- Клінічний діагноз -->
                     <p class="form-label-print form-line">
                         Клінічний діагноз 
                         <span class="print-data ml-1">${data.clinicalDiagnosis || ''}</span>
                     </p>
                     
-                    <!-- Вид дослідження -->
                     <p class="form-label-print form-line">
                         Вид дослідження: 
                         <span class="print-data ml-1">ГРУПА КРОВІ РЕЗУС - ПРИНАЛЕЖНІСТЬ</span>
                     </p>
                 
-                    <!-- Підпис лікаря (АВТОМАТИЧНО З ПОЛЯ ЛІКАР) -->
-                    <p style="font-size: 10pt !important; margin-top: 15px;">
+                    <p style="font-size: 12px !important; margin-top: 15px;">
                         П.І.Б. лікаря 
-                        <span class="print-data" style="font-size: 10pt !important;">${data.doctor || ''}</span> 
+                        <span class="print-data" style="font-size: 12px !important;">${data.doctor || ''}</span> 
                         <span class="doctor-signature-line"></span> 
                     </p>
                 </div>
@@ -1299,25 +1170,20 @@
             `;
         };
 
-
-        // Об'єкт, що містить усі доступні шаблони для динамічного вибору
         const formTemplates = {
             'ZAK': { name: 'ЗАК (Кров)', generator: templateZAK, color: 'bg-purple-500' },
             'ZAS': { name: 'ЗАС (Сеча)', generator: templateZAS, color: 'bg-yellow-500' },
             'KOA': { name: 'Коагулограма', generator: templateCoagulogram, color: 'bg-sky-500' },
+            // Змінено колір для візуального розрізнення від BIO
             'BLG': { name: 'Група крові', generator: templateBloodGroup, color: 'bg-red-500' }, 
             'RMP': { name: 'РМП (Сифіліс)', generator: templateRMP, color: 'bg-red-500' },
             'BIO': { name: 'Біохімія', generator: templateBiochemistry, color: 'bg-red-500' },
         };
         
-        // --- Друк ---
-        
-        // Функція для розрахунку висоти ряду
         function calculateRowHeight(height1, height2) {
             return Math.max(height1 || 0, height2 || 0);
         }
 
-        // Override old print function
         window.processAndPrint = function() {
             const statusMessage = document.getElementById('status-message');
             console.log("processAndPrint викликано.");
@@ -1329,35 +1195,31 @@
                 return;
             }
 
-            // 1. СОРТУВАННЯ: Біохімія завжди в кінці, інші форми - в порядку додавання
+            // --- КЛЮЧОВА ЗМІНА ДЛЯ СОРТУВАННЯ: BIO В КІНЦІ ---
+            // Це гарантує, що всі менші (стандартні) форми будуть упаковані першими,
+            // максимізуючи ефективність використання аркушів A4.
             const bioItems = printQueue.filter(item => item.templateKey === 'BIO');
             const otherItems = printQueue.filter(item => item.templateKey !== 'BIO');
-            
-            // Об'єднуємо: спочатку всі звичайні, потім всі біохімії
             const sortedQueue = [...otherItems, ...bioItems];
+            // --- КІНЕЦЬ СОРТУВАННЯ ---
 
             statusMessage.textContent = "";
             statusMessage.classList.remove('text-red-600');
             statusMessage.classList.add('text-green-600');
 
-            // 2. Підготовка області друку
             const printArea = document.getElementById('print-area');
             printArea.innerHTML = ''; 
 
-            // 3. ЛОГІКА РОЗБИТТЯ НА СТОРІНКИ (ALGORITHM: "Smart Tetris")
-            const MAX_PAGE_HEIGHT_MM = 290; // Максимальна висота контенту на A4 (з запасом)
+            const MAX_PAGE_HEIGHT_MM = 290; 
             
             let currentPages = [];
             let currentPage = []; 
-            // currentPage = [ {html, height}, ... ]
 
-            // Використовуємо sortedQueue замість printQueue
             for (let i = 0; i < sortedQueue.length; i++) {
                 const queueItem = sortedQueue[i];
                 const templateKey = queueItem.templateKey;
                 const template = formTemplates[templateKey];
                 const heightInfo = getFormHeightInfo(templateKey);
-                // Генеруємо HTML, передаючи оригінальний номер (хоча він тут не сильно важливий візуально)
                 const formHtml = template.generator(queueItem.patientData, i + 1);
                 
                 const newItem = {
@@ -1366,20 +1228,15 @@
                     className: heightInfo.className
                 };
 
-                // Перевіряємо, чи влазить новий елемент на поточну сторінку
-                // Максимум 4 форми на сторінку (2x2)
                 if (currentPage.length < 4) {
-                    // Симулюємо додавання
                     const testPage = [...currentPage, newItem];
                     
-                    // Розраховуємо висоту рядків
-                    // Рядок 1: елементи 0 і 1
+                    // Обчислення висоти рядків з урахуванням того, що форми можуть бути різної висоти
                     const row1H = calculateRowHeight(
                         testPage[0] ? testPage[0].height : 0, 
                         testPage[1] ? testPage[1].height : 0
                     );
                     
-                    // Рядок 2: елементи 2 і 3
                     const row2H = calculateRowHeight(
                         testPage[2] ? testPage[2].height : 0, 
                         testPage[3] ? testPage[3].height : 0
@@ -1388,33 +1245,29 @@
                     const totalHeight = row1H + row2H;
 
                     if (totalHeight <= MAX_PAGE_HEIGHT_MM) {
-                        // Влазить! Додаємо.
                         currentPage.push(newItem);
                     } else {
-                        // Не влазить по висоті (наприклад, Біохімія штовхає все вниз).
-                        // Закриваємо поточну сторінку
+                        // Якщо не поміщається, починаємо нову сторінку з поточним елементом
                         currentPages.push(currentPage);
-                        // Починаємо нову сторінку з цим елементом
                         currentPage = [newItem];
                     }
                 } else {
-                    // Сторінка заповнена (вже 4 елементи).
+                    // Якщо поточна сторінка вже повна (4 елементи), починаємо нову
                     currentPages.push(currentPage);
                     currentPage = [newItem];
                 }
             }
             
-            // Додаємо останню сторінку, якщо вона не пуста
             if (currentPage.length > 0) {
                 currentPages.push(currentPage);
             }
 
-            // 4. РЕНДЕРИНГ СТОРІНОК
+            // Фінальне формування HTML для друку
             currentPages.forEach(pageData => {
                 const pageDiv = document.createElement('div');
                 pageDiv.className = 'a4-page';
                 
-                // Розрахунок висоти рядків для CSS Grid
+                // Перераховуємо фінальні висоти рядків для встановлення grid-template-rows
                 const row1H = calculateRowHeight(
                     pageData[0] ? pageData[0].height : 0, 
                     pageData[1] ? pageData[1].height : 0
@@ -1424,7 +1277,7 @@
                     pageData[3] ? pageData[3].height : 0
                 );
                 
-                // Якщо другий рядок порожній, висота 0 (але краще 0mm, щоб не займав місце)
+                // Встановлення висоти рядків у міліметрах
                 pageDiv.style.gridTemplateRows = `${row1H}mm ${row2H > 0 ? row2H : 0}mm`;
 
                 pageData.forEach(item => {
@@ -1437,7 +1290,6 @@
                 printArea.appendChild(pageDiv);
             });
 
-            // 5. Виклик друку
             statusMessage.textContent = "Підготовка до друку...";
             console.log("Викликаємо window.print()...");
             setTimeout(() => {
@@ -1446,24 +1298,26 @@
             }, 100);
         };
         
-        // Функція для автоматичного заповнення поточної дати
         function autoFillDate() {
             const today = new Date();
-            // Поточна дата
             document.getElementById('bioMaterialDay').value = String(today.getDate()).padStart(2, '0');
             document.getElementById('bioMaterialMonth').value = String(today.getMonth() + 1).padStart(2, '0');
             document.getElementById('bioMaterialYear').value = today.getFullYear();
+            
+            // Set default date for global picker too
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            document.getElementById('global-date-picker').value = `${yyyy}-${mm}-${dd}`;
         }
         
-        // Функція для автоматичного додавання крапок до дати народження
         function formatBirthDateInput(input) {
-            let value = input.value.replace(/\D/g, ''); // Видаляємо всі не-цифри
+            let value = input.value.replace(/\D/g, ''); 
             
             if (value.length > 8) {
-                value = value.substring(0, 8); // Обмежуємо 8 символами
+                value = value.substring(0, 8); 
             }
 
-            // dd.mm.yyyy format logic
             let formattedValue = '';
             if (value.length > 0) {
                 formattedValue += value.substring(0, 2);
@@ -1479,43 +1333,34 @@
         }
 
 
-        // Первинний рендеринг списку при завантаженні
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. Ініціалізація випадаючих списків лікарів
             initDoctorSelects();
             
-            // 2. Встановлення обробника подій для автоматичного форматування дати народження
             const birthDateInput = document.getElementById('birthDate');
             birthDateInput.addEventListener('input', () => formatBirthDateInput(birthDateInput));
 
-            // 3. Завантаження пацієнтів та автозаповнення поточної дати
             loadPatients();
             autoFillDate(); 
 
-            // 4. Set initial patient data or test data
             const patientKeys = Object.keys(patients);
             if (patientKeys.length > 0) {
-                // Вибираємо першого пацієнта, але приховуємо форму (режим перегляду/друку)
                 selectPatient(patientKeys[0]); 
                 document.getElementById('patient-data-section').classList.add('hidden');
             } else {
-                // Set test data defaults if no patients exist
+                // Демо-дані для порожньої бази
                 document.getElementById('pib').value = "Іванов Іван Іванович";
                 document.getElementById('birthDate').value = "05.10.1995";
                 document.getElementById('age').value = "28";
                 document.getElementById('address').value = "Покришева 8, кв 69";
                 document.getElementById('medCardNumber').value = "02514";
                 document.getElementById('clinicalDiagnosis').value = "хронічний пієлонефрит";
-                // Доктор вже встановлений у form.doctor при initDoctorSelects
-                // Показуємо форму для нового пацієнта
                 document.getElementById('patient-data-section').classList.remove('hidden');
             }
 
-            // 5. Render UI
             renderPatientList();
             renderPrintQueue();
             
-            // 6. Set default doctor in quick select to match the form default
+            // Синхронізація селекторів лікаря при завантаженні
             document.getElementById('doctor-quick-select').value = document.getElementById('doctor').value;
         });
     </script>
@@ -1523,27 +1368,32 @@
 <body class="p-4 md:p-8">
 
     <div class="max-w-3xl mx-auto bg-white p-6 md:p-8 rounded-xl shadow-2xl">
-        <h1 class="text-3xl font-extrabold text-indigo-700 mb-4 text-center">Генератор Направлень на Аналіз (A6 на A4)</h1>
+        <h1 class="text-3xl font-extrabold text-indigo-700 mb-4 text-center"></h1>
 
         <!-- Розділ управління пацієнтами -->
         <div class="bg-blue-100 p-6 rounded-xl mb-8 shadow-2xl border-2 border-blue-300">
             <h2 class="text-xl font-bold text-blue-800 mb-4 flex justify-between items-center">
-                1. Управління Пацієнтами
+                Пацієнти
                 <span class="text-sm font-normal text-gray-700">Обрано: <span id="current-patient-display" class="font-bold text-blue-900">Не обрано</span></span>
             </h2>
             
-            <!-- NEW: Швидкий вибір лікаря -->
             <div class="mb-4">
-                <label for="doctor-quick-select" class="form-label text-blue-800">Швидкий вибір лікаря (Змінити для ВСІХ пацієнтів):</label>
+                <label for="doctor-quick-select" class="form-label text-blue-800">Швидкий вибір лікаря:</label>
                 <select id="doctor-quick-select" onchange="handleQuickDoctorChange(this)" class="form-input w-full appearance-none bg-white">
                     <!-- Опції будуть згенеровані JS -->
                 </select>
             </div>
 
+            <!-- --- ПОЛЕ ВИБОРУ ДАТИ --- -->
+            <div class="mb-4">
+                <label for="global-date-picker" class="form-label text-blue-800">Інша дата:</label>
+                <input type="date" id="global-date-picker" onchange="handleGlobalDateChange(this)" class="form-input w-full bg-white">
+            </div>
+
             
             <!-- Секція для списку пацієнтів та кнопки "Новий пацієнт" -->
             <div class="mt-4 p-3 bg-white rounded-lg border border-red-300 flex flex-col max-h-72 overflow-y-hidden">
-                <p class="text-sm font-medium text-red-700 mb-2">База Пацієнтів (локальне сховище):</p>
+                <p class="text-sm font-medium text-red-700 mb-2">Пацієнти:</p>
                 <!-- Контейнер для списку - тепер займає всю висоту, що залишилася -->
                 <div id="patient-list-container" class="overflow-y-auto flex-grow">
                     <p class="text-gray-400 italic text-sm">Список пацієнтів...</p>
@@ -1559,9 +1409,8 @@
         
         <!-- Розділ введення даних -->
         <div id="patient-data-section" class="bg-indigo-50 p-6 rounded-lg mb-8 shadow-inner">
-            <h2 class="text-xl font-semibold text-indigo-800 mb-4">2. Заповнення Даних Пацієнта</h2>
+            <h2 class="text-xl font-semibold text-indigo-800 mb-4">Данні пацієнта</h2>
             <form id="entry-form" onsubmit="event.preventDefault();" class="space-y-4">
-                <!-- ФІКСОВАНІ ПОЛЯ ВИДАЛЕНО З ФОРМИ -->
                 <div class="hidden">
                     <input type="hidden" id="institutionName" name="institutionName" value="${FIXED_INSTITUTION_NAME.replace(/\n/g, ' ')}">
                     <input type="hidden" id="department" name="department" value="${FIXED_DEPARTMENT}">
@@ -1614,12 +1463,10 @@
                     </div>
                 </div>
                 
-                <!-- Додаткові поля з форми -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     
                     <div>
-                        <label for="doctor" class="form-label">Лікар (Випадаючий список - синхронізовано зі Швидким вибором):</label>
-                        <!-- Змінено: onchange для синхронізації з quick select -->
+                        <label for="doctor" class="form-label">Лікар:</label>
                         <select id="doctor" name="doctor" required class="form-input w-full appearance-none bg-white" onchange="document.getElementById('doctor-quick-select').value = this.value;">
                             <!-- Опції будуть згенеровані JS -->
                         </select>
@@ -1634,7 +1481,6 @@
                     </div>
                 </div>
                 
-                <!-- Лейкоформула (специфічно для ЗАК) -->
                 <div class="border-t pt-4">
                     <label class="form-label mb-2">Налаштування специфічні для форм:</label>
                     <div class="flex items-center space-x-6">
@@ -1650,14 +1496,12 @@
                     </div>
                 </div>
                 
-                <!-- Додаткова інформація (для старих шаблонів) -->
                 <div class="border-t pt-4">
                     <label for="additionalInfo" class="form-label">Додаткова інформація (для інших форм):</label>
                     <textarea id="additionalInfo" name="additionalInfo" rows="2" class="form-input w-full" placeholder="Наприклад: особливі примітки, які будуть використані в інших шаблонах..."></textarea>
                 </div>
             </form>
             
-            <!-- Кнопка Збереження перенесена сюди -->
             <div class="flex justify-end mt-4">
                 <button onclick="saveOrAddPatient()" class="bg-green-600 text-white p-2 rounded-lg font-semibold hover:bg-green-700 transition duration-150 shadow-md">
                     <i data-lucide="save" class="w-5 h-5 inline-block mr-1"></i>
@@ -1668,7 +1512,7 @@
         
         <!-- Розділ вибору шаблонів (Черга друку) -->
         <div class="bg-gray-100 p-6 rounded-lg mb-8 shadow-inner">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">3. Додавання Аналізів до Черги (Обрано <span id="selected-forms-count" class="font-bold">0</span>)</h2>
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Оберіть дослідження: (обрано:<span id="selected-forms-count" class="font-bold">0</span>)</h2>
             <p class="text-sm text-gray-600 mb-4">Натисніть на кнопку, щоб додати обраний аналіз для **поточного пацієнта** у чергу друку.</p>
 
             <div class="flex flex-wrap gap-3 mb-4">
